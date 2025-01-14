@@ -1,4 +1,6 @@
 package com.precojusto.granja.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,12 +18,16 @@ public class Duck {
     private String name;
 
     @OneToMany
+    @JoinTable(
+            name = "duck_children",
+            joinColumns = @JoinColumn(name = "parent_id"),
+            inverseJoinColumns = @JoinColumn(name = "child_id")
+    )
     private List<Duck> children;
 
-    @Column(nullable = false)
-    private Double price;
-
     @ManyToOne
+    @JoinColumn(name = "mother_id")
+    @JsonBackReference
     private Duck mother;
 
     @Column(nullable = false)

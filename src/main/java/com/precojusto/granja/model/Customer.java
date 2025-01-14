@@ -17,7 +17,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "Customer")
 public class Customer {
-
     @Id
     @GeneratedValue
     private UUID id;
@@ -25,6 +24,6 @@ public class Customer {
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "eligible_discount", nullable = false)
-    private Boolean eligibleDiscount;
+    @Column(name = "has_discount", nullable = false)
+    private Boolean hasDiscount;
 }
