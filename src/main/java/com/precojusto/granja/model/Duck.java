@@ -1,37 +1,28 @@
 package com.precojusto.granja.model;
-
-
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
-@Table(name = "Duck")
+@Data
 public class Duck {
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(columnDefinition = "uuid[]")
-    private UUID[] children;
+    @OneToMany
+    private List<Duck> children;
 
     @Column(nullable = false)
     private Double price;
 
-    @Column(name = "mother_id")
-    private UUID motherId;
+    @ManyToOne
+    private Duck mother;
 
     @Column(nullable = false)
     private Character sex;
