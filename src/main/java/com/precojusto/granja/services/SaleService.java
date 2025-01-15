@@ -42,19 +42,22 @@ public class SaleService {
             throw new RuntimeException("Um ou mais patos selecionados não estão disponíveis para venda");
         }
 
-        BigDecimal totalPrice = BigDecimal.valueOf(25);
+        BigDecimal totalPrice = new BigDecimal(0);
         for (Duck duck : ducks) {
             if (duck.getChildren().isEmpty()) {
-                totalPrice = new BigDecimal(70);
+                totalPrice = totalPrice.add(new BigDecimal(70));
             } else if (duck.getChildren().size() == 1) {
-                totalPrice = new BigDecimal(50);
+                totalPrice = totalPrice.add(new BigDecimal(50));
+            } else {
+                totalPrice = totalPrice.add(new BigDecimal(25));
             }
+            duck.setAvailable(false);
+            duckRepository.save(duck);
         }
         if (customer.getHasDiscount()) {
             totalPrice = totalPrice.multiply(new BigDecimal("0.8"));
         }
 
-        // Registrar venda
         Sale sale = new Sale();
         sale.setCustomer(customer);
         sale.setDucks(ducks);

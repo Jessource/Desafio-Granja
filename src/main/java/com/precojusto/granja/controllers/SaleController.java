@@ -1,5 +1,6 @@
 package com.precojusto.granja.controllers;
 
+import com.precojusto.granja.mappers.ObjectReturn;
 import com.precojusto.granja.mappers.RegisterSale;
 import com.precojusto.granja.model.Sale;
 import com.precojusto.granja.services.SaleService;
@@ -24,9 +25,12 @@ public class SaleController {
 
     @PostMapping
     @Operation(summary = "Registra uma venda de patos")
-    public ResponseEntity<Sale> registerSale(@RequestBody RegisterSale body) {
-
-        Sale sale = saleService.registerSale(body);
-        return ResponseEntity.status(HttpStatus.CREATED).body(sale);
+    public ResponseEntity<?> registerSale(@RequestBody RegisterSale body) {
+        try {
+            Sale sale = saleService.registerSale(body);
+            return ResponseEntity.status(HttpStatus.CREATED).body(sale);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ObjectReturn(e.getMessage()));
+        }
     }
 }
