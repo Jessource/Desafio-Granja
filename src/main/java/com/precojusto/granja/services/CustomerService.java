@@ -1,7 +1,10 @@
 package com.precojusto.granja.services;
 import com.precojusto.granja.model.Customer;
+import com.precojusto.granja.model.Sale;
 import com.precojusto.granja.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,4 +22,9 @@ public class CustomerService {
     public List<Customer> findAll() {
         return customerRepository.findAll();
     }
+
+    public Page<Customer> listAllCustomers(Pageable pageable) {
+        return customerRepository.findAll(pageable);
+    }
+
 }

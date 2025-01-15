@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Duck {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -2,9 +2,12 @@ package com.precojusto.granja.services;
 
 import com.precojusto.granja.mappers.DuckList;
 import com.precojusto.granja.model.Duck;
+import com.precojusto.granja.model.Sale;
 import com.precojusto.granja.repositories.DuckRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,4 +29,9 @@ public class DuckService {
     public List<DuckList> findAll() {
         return duckRepository.findAll().stream().map(it -> modelMapper.map(it, DuckList.class)).toList();
     }
+
+    public Page<Duck> listAllDucks(Pageable pageable) {
+        return duckRepository.findAll(pageable);
+    }
+
 }

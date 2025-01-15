@@ -8,6 +8,8 @@ import com.precojusto.granja.repositories.CustomerRepository;
 import com.precojusto.granja.repositories.DuckRepository;
 import com.precojusto.granja.repositories.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -66,4 +68,11 @@ public class SaleService {
 
         return saleRepository.save(sale);
     }
+    public List<Sale> listAllSales() {
+        return saleRepository.findAll();
+    }
+    public Page<Sale> listAllSales(Pageable pageable) {
+        return saleRepository.findAll(pageable);
+    }
+
 }
