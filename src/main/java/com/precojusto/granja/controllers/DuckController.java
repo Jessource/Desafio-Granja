@@ -25,7 +25,7 @@ public class DuckController {
     private ModelMapper modelMapper;
 
     @PostMapping
-    @Operation(summary = "Cadastrar um novo pato", description = "Cadastra um pato no sistema com detalhes como nome, mãe, filhos, preço e sexo.")
+    @Operation(summary = "Cadastrar um novo pato", description = "Cadastra um pato no sistema com detalhes como nome, mãe, filhos e sexo.")
     public ResponseEntity<Duck> createDuck(@RequestBody Duck duck) {
         return ResponseEntity.ok(duckService.save(duck));
     }

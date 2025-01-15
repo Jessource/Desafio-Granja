@@ -17,6 +17,9 @@ public class Duck {
     @Column(nullable = false)
     private String name;
 
+    @Column
+    private Boolean available;
+
     @OneToMany
     @JoinTable(
             name = "duck_children",

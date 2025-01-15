@@ -13,5 +13,6 @@ public class DuckList {
     private String name;
     private List<SimplifiedDuck> children;
     private SimplifiedDuck mother;
+    private Boolean available;
     private Character sex;
 }
