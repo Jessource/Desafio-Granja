@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/reports")
+@RequestMapping("/api/reports/excel")
 public class ExcelReportController {
 
     private final ExcelReportService excelReportService;
