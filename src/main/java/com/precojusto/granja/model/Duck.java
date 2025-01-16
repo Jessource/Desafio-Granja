@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,14 +22,6 @@ public class Duck {
     @Column
     private Boolean available;
 
-    @OneToMany
-    @JoinTable(
-            name = "duck_children",
-            joinColumns = @JoinColumn(name = "parent_id"),
-            inverseJoinColumns = @JoinColumn(name = "child_id")
-    )
-    private List<Duck> children;
-
     @ManyToOne
     @JoinColumn(name = "mother_id")
     @JsonBackReference
@@ -36,4 +29,7 @@ public class Duck {
 
     @Column(nullable = false)
     private Character sex;
+
+    @Column
+    private BigDecimal saleValue;
 }

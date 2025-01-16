@@ -46,18 +46,21 @@ public class SaleService {
 
         BigDecimal totalPrice = new BigDecimal(0);
         for (Duck duck : ducks) {
-            if (duck.getChildren().isEmpty()) {
-                totalPrice = totalPrice.add(new BigDecimal(70));
-            } else if (duck.getChildren().size() == 1) {
-                totalPrice = totalPrice.add(new BigDecimal(50));
+            var discount = 1d;
+            var value = new BigDecimal(0);
+            if (customer.getHasDiscount()) discount = 0.8;
+            List<Duck> children = duckRepository.findAllByMother(duck);
+            if (children.isEmpty()) {
+                value = new BigDecimal(70 * discount);
+            } else if (children.size() == 1) {
+                value = new BigDecimal(50 * discount);
             } else {
-                totalPrice = totalPrice.add(new BigDecimal(25));
+                value = new BigDecimal(25 * discount);
             }
+            totalPrice = totalPrice.add(value);
+            duck.setSaleValue(value);
             duck.setAvailable(false);
             duckRepository.save(duck);
-        }
-        if (customer.getHasDiscount()) {
-            totalPrice = totalPrice.multiply(new BigDecimal("0.8"));
         }
 
         Sale sale = new Sale();
@@ -74,5 +77,4 @@ public class SaleService {
     public Page<Sale> listAllSales(Pageable pageable) {
         return saleRepository.findAll(pageable);
     }
-
 }

@@ -1,5 +1,7 @@
 package com.precojusto.granja.controllers;
+import com.precojusto.granja.mappers.CreateDuck;
 import com.precojusto.granja.mappers.DuckList;
+import com.precojusto.granja.mappers.ObjectReturn;
 import com.precojusto.granja.model.Duck;
 import com.precojusto.granja.model.Sale;
 import com.precojusto.granja.services.DuckService;
@@ -31,8 +33,12 @@ public class DuckController {
 
     @PostMapping
     @Operation(summary = "Cadastrar um novo pato", description = "Cadastra um pato no sistema com detalhes como nome, mãe, filhos e sexo.")
-    public ResponseEntity<Duck> createDuck(@RequestBody Duck duck) {
-        return ResponseEntity.ok(duckService.save(duck));
+    public ResponseEntity<?> createDuck(@RequestBody CreateDuck duck) {
+        try {
+            return ResponseEntity.ok(duckService.save(duck));
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().body(new ObjectReturn(e.getMessage()));
+        }
     }
 
 

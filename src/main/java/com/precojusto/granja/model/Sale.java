@@ -37,6 +37,4 @@ public class Sale {
 
     @Column(nullable = false)
     private LocalDateTime saleDate;
-
-
 }
